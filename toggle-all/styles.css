@@ -1,0 +1,33 @@
+/*----------------------------------------------------------------
+------------------------------------------------------------------
+  TOGGLE ALL PLUGIN ADJUSTMENTS
+------------------------------------------------------------------
+----------------------------------------------------------------*/
+
+/* Base style */
+.status-bar-item.toggle-snippets-btn,
+.status-bar-item.toggle-plugins-btn,
+.status-bar-item.toggle-palette-btn,
+.status-bar-item.toggle-mode-btn {
+  color: var(--ui-icon-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover */
+.status-bar-item.toggle-snippets-btn:hover,
+.status-bar-item.toggle-plugins-btn:hover,
+.status-bar-item.toggle-palette-btn:hover,
+.status-bar-item.toggle-mode-btn:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+/* Disabled */
+.status-bar-item.toggle-snippets-btn.is-disabled,
+.status-bar-item.toggle-plugins-btn.is-disabled,
+.status-bar-item.toggle-palette-btn.is-disabled {
+  color: var(--text-error);
+  font-weight: bold;
+}
