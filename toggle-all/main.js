@@ -7,15 +7,15 @@
 const { Plugin, Notice } = require("obsidian");
 
 module.exports = class ToggleAllPlugin extends Plugin {
-	constructor(app, manifest) {
-		super(app, manifest);
-		this.state = {
+  constructor(app, manifest) {
+    super(app, manifest);
+    this.state = {
       "savedSnippets": [],
       "snippetsDisabled": false,
       "savedPlugins": [],
       "pluginsDisabled": false,
       "savedPalette": null
-		};
+    };
 
     // Snippets
     this.snippetsIconSvg = `
@@ -24,8 +24,8 @@ module.exports = class ToggleAllPlugin extends Plugin {
     <path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m5 12-3 3 3 3"/><path d="m9 18 3-3-3-3"/>
     </svg>`
 
-		// Plugin
-		this.pluginIconSvg = `
+    // Plugin
+    this.pluginIconSvg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-toy-brick-icon lucide-toy-brick">
     <rect width="18" height="12" x="3" y="8" rx="1"/>
     <path d="M10 8V5c0-.6-.4-1-1-1H6a1 1 0 0 0-1 1v3"/>
@@ -51,81 +51,81 @@ module.exports = class ToggleAllPlugin extends Plugin {
     this.sunIconSvg = `
     <path stroke="currentColor" stroke-width="2" d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/>
     `;
-	}
+  }
 
-	async onload() {
-		// Load saved state
-		const data = await this.loadData();
-		if (data) this.state = data;
+  async onload() {
+    // Load saved state
+    const data = await this.loadData();
+    if (data) this.state = data;
     
     this.addCommand({
-			id: "toggle-snippets",
-			name: "Toggle all active snippets",
-			callback: () => this.toggleSnippets(),
-		});
-
-		this.addCommand({
-			id: "toggle-community-plugins",
-			name: "Toggle all community plugins",
-			callback: () => this.togglePlugins(),
-		});
+      id: "toggle-snippets",
+      name: "Toggle all active snippets",
+      callback: () => this.toggleSnippets(),
+    });
 
     this.addCommand({
-			id: "toggle-default-theme",
-			name: "Toggle default theme",
-			callback: () => this.togglePalette(),
-		});
+      id: "toggle-community-plugins",
+      name: "Toggle all community plugins",
+      callback: () => this.togglePlugins(),
+    });
 
-		this.addCommand({
-			id: 'toggle-light-dark-mode',
-			name: 'Toggle light/dark mode',
-			callback: () => this.toggleMode()
-		});
+    this.addCommand({
+      id: "toggle-default-theme",
+      name: "Toggle default theme",
+      callback: () => this.togglePalette(),
+    });
+
+    this.addCommand({
+      id: 'toggle-light-dark-mode',
+      name: 'Toggle light/dark mode',
+      callback: () => this.toggleMode()
+    });
 
     // --- Status bar button for snippets toggle ---
-		this.snippetsButton = this.addStatusBarItem();
-		this.snippetsButton.addClass("toggle-snippets-btn");
-		this.snippetsButton.setAttr("title", "Toggle all active");
-		// Use the SVG icon instead of text
+    this.snippetsButton = this.addStatusBarItem();
+    this.snippetsButton.addClass("toggle-snippets-btn");
+    this.snippetsButton.setAttr("title", "Toggle all active");
+    // Use the SVG icon instead of text
     this.snippetsIcon = this.createStatusBarIcon(this.snippetsIconSvg);
-		this.snippetsButton.appendChild(this.snippetsIcon);
-		this.snippetsButton.addEventListener("click", () => this.toggleSnippets());
+    this.snippetsButton.appendChild(this.snippetsIcon);
+    this.snippetsButton.addEventListener("click", () => this.toggleSnippets());
 
 
-		// --- Status bar button for plugin toggle ---
-		this.pluginButton = this.addStatusBarItem();
-		this.pluginButton.addClass("toggle-plugins-btn");
-		this.pluginButton.setAttr("title", "Toggle all community plugins");
-		// Use the SVG icon instead of text
+    // --- Status bar button for plugin toggle ---
+    this.pluginButton = this.addStatusBarItem();
+    this.pluginButton.addClass("toggle-plugins-btn");
+    this.pluginButton.setAttr("title", "Toggle all community plugins");
+    // Use the SVG icon instead of text
     this.pluginIcon = this.createStatusBarIcon(this.pluginIconSvg);
-		this.pluginButton.appendChild(this.pluginIcon);
-		this.pluginButton.addEventListener("click", () => this.togglePlugins());
+    this.pluginButton.appendChild(this.pluginIcon);
+    this.pluginButton.addEventListener("click", () => this.togglePlugins());
 
 
     // --- Status bar button for theme toggle ---
-		this.paletteButton = this.addStatusBarItem();
-		this.paletteButton.addClass("toggle-palette-btn");
-		this.paletteButton.setAttr("title", "Toggle default theme");
-		// Use the SVG icon instead of text
+    this.paletteButton = this.addStatusBarItem();
+    this.paletteButton.addClass("toggle-palette-btn");
+    this.paletteButton.setAttr("title", "Toggle default theme");
+    // Use the SVG icon instead of text
     this.paletteIcon = this.createStatusBarIcon(this.paletteIconSvg);
-		this.paletteButton.appendChild(this.paletteIcon);
-		this.paletteButton.addEventListener("click", () => this.togglePalette());
+    this.paletteButton.appendChild(this.paletteIcon);
+    this.paletteButton.addEventListener("click", () => this.togglePalette());
 
     // Theme icon in status bar
-		this.modeButton = this.addStatusBarItem();
-		this.modeButton.addClass("toggle-mode-btn");
-		this.modeButton.setAttr("title", "Toggle Light/Dark Mode");
+    this.modeButton = this.addStatusBarItem();
+    this.modeButton.addClass("toggle-mode-btn");
+    this.modeButton.setAttr("title", "Toggle Light/Dark Mode");
     this.modeIcon = this.createStatusBarIcon(this.getModeIcon());
     this.modeButton.appendChild(this.modeIcon);
-		this.modeButton.addEventListener("click", () => this.toggleMode());
+    this.modeButton.addEventListener("click", () => this.toggleMode());
 
-		// Update icon if theme changes externally
-		this.registerEvent(this.app.workspace.on("css-change", () => {
-			this.modeIcon.innerHTML = this.getModeIcon();
-		}));
+    // Update icon if theme changes externally
+    this.registerEvent(this.app.workspace.on("css-change", () => {
+      this.modeIcon.innerHTML = this.getModeIcon();
+    }));
 
-		this.updateButtonStyles();
-	}
+    this.updateButtonStyles();
+  }
 
     // --- Toggle active plugins ---
     async toggleSnippets() {
@@ -156,34 +156,35 @@ module.exports = class ToggleAllPlugin extends Plugin {
     this.updateButtonStyles();
   }
 
-	// --- Toggle community plugins (never disable self) ---
-	async togglePlugins() {
-		const plugins = this.app.plugins;
-		const selfId = this.manifest.id;
+  // --- Toggle community plugins (never disable self) ---
+  async togglePlugins() {
+    const plugins = this.app.plugins;
+    const selfId = this.manifest.id;
 
-		if (!this.state.pluginsDisabled) {
-			this.state.savedPlugins = Object.keys(plugins.plugins).filter(
-				(id) => plugins.enabledPlugins.has(id) && id !== selfId
-			);
+    if (!this.state.pluginsDisabled) {
+      this.state.savedPlugins = Object.keys(plugins.plugins).filter(
+        (id) => plugins.enabledPlugins.has(id) && id !== selfId
+      );
 
-			for (const id of this.state.savedPlugins) {
-				await plugins.disablePlugin(id);
-			}
+      for (const id of this.state.savedPlugins) {
+        await plugins.disablePlugin(id);
+      }
 
-			this.state.pluginsDisabled = true;
-			new Notice("All community plugins disabled (except toggle plugin).");
-		} else {
-			for (const id of this.state.savedPlugins) {
-				await plugins.enablePlugin(id);
-			}
+      this.state.pluginsDisabled = true;
+      new Notice("All community plugins disabled (except toggle plugin).");
+    } else {
+      for (const id of this.state.savedPlugins) {
+        await plugins.enablePlugin(id);
+      }
 
-			this.state.pluginsDisabled = false;
-			new Notice("Previously active plugins re-enabled.");
-		}
+      this.state.pluginsDisabled = false;
+      new Notice("Previously active plugins re-enabled.");
+    }
 
-		await this.saveData(this.state);
-		this.updateButtonStyles();
-	}
+    await this.saveData(this.state);
+    this.updateButtonStyles();
+    this.app.commands.executeCommandById("app:reload");
+  }
 
 // --- Toggle default/custom palette ---
 async togglePalette() {
@@ -210,19 +211,19 @@ async togglePalette() {
 
 
   // --- Light/Dark Mode toggle ---
-	async toggleMode() {
+  async toggleMode() {
 
-		const currentMode = this.app.vault.getConfig("theme");
-		const newMode = currentMode === this.DARK_MODE_KEY ? this.LIGHT_MODE_KEY : this.DARK_MODE_KEY;
-		this.app.changeTheme(newMode);
+    const currentMode = this.app.vault.getConfig("theme");
+    const newMode = currentMode === this.DARK_MODE_KEY ? this.LIGHT_MODE_KEY : this.DARK_MODE_KEY;
+    this.app.changeTheme(newMode);
 
-		// Update icon
-		this.modeIcon.innerHTML = this.getModeIcon();
-		new Notice(`Switched to ${newMode === this.DARK_MODE_KEY ? "Dark" : "Light"} Mode`);
-	}
+    // Update icon
+    this.modeIcon.innerHTML = this.getModeIcon();
+    new Notice(`Switched to ${newMode === this.DARK_MODE_KEY ? "Dark" : "Light"} Mode`);
+  }
 
-	// --- Helpers for status bar icons ---
-	getModeIcon() {
+  // --- Helpers for status bar icons ---
+  getModeIcon() {
     const currentMode = this.app.vault.getConfig("theme");
     return currentMode === "obsidian" ? this.sunIconSvg : this.moonIconSvg;
   }
@@ -237,17 +238,17 @@ async togglePalette() {
     return svg;
   }
 
-	// --- Update button styles ---
-	updateButtonStyles() {
+  // --- Update button styles ---
+  updateButtonStyles() {
     if (this.snippetsButton) {
-			this.snippetsButton.toggleClass("is-disabled", this.state.snippetsDisabled);
-		}
-		if (this.pluginButton) {
-			this.pluginButton.toggleClass("is-disabled", this.state.pluginsDisabled);
-		}
+      this.snippetsButton.toggleClass("is-disabled", this.state.snippetsDisabled);
+    }
+    if (this.pluginButton) {
+      this.pluginButton.toggleClass("is-disabled", this.state.pluginsDisabled);
+    }
     if (this.paletteButton) {
         const noThemeApplied = !this.state.savedPalette && !this.app.customCss.theme;
         this.paletteButton.toggleClass("is-disabled", noThemeApplied);
     }
-	}
+  }
 };
