@@ -16,3 +16,31 @@ This is something I haven't found in existing plugins (although some functionali
 - Toggle color theme: this will toggle your custom theme to default and back. 
 - Toggle light/dark mode: this works like the Theme Picker plugin, from where I customized the logic. Toggle easily between light and dark. 
 
+## Arrow No-Break
+
+Folder: arrow-nobreak
+
+Prevents arrow ligature (`->`) from breaking in live preview. For source and reading mode this can easily be done by CSS, but for live preview I couldn't find a way except for a plugin. I use quite a lot of arrows in my notes, so I found this annoying enough to write a bit of code...
+
+Here's the CSS for source & reading mode:
+```
+/*----------------------------------------------------------------
+  Stop arrow ligatures from breaking
+------------------------------------------------------------------
+/* Prevent line breaks inside -> only */
+
+/* Apply nowrap to any span that contains -> */
+.cm-line span:has-text("->") {
+  white-space: nowrap;
+}
+
+/* Reading view */
+.markdown-preview-view :is(span, p, li, td):has-text("->") {
+  white-space: nowrap;
+}
+
+/* Source view */
+.cm-line:has-text("->") {
+  white-space: nowrap;
+}
+```

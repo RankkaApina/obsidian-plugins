@@ -1,0 +1,2 @@
+/* Prevent breaking only inside '->' */
+.cm-arrow-nobreak { white-space: nowrap; }
