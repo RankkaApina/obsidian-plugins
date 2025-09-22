@@ -183,7 +183,9 @@ module.exports = class ToggleAllPlugin extends Plugin {
 
     await this.saveData(this.state);
     this.updateButtonStyles();
-    this.app.commands.executeCommandById("app:reload");
+    
+    //note: this breaks the code -> needs an alternative approach
+    //this.app.commands.executeCommandById("app:reload"); 
   }
 
 // --- Toggle default/custom palette ---

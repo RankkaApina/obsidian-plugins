@@ -16,6 +16,8 @@ This is something I haven't found in existing plugins (although some functionali
 - Toggle color theme: this will toggle your custom theme to default and back. 
 - Toggle light/dark mode: this works like the Theme Picker plugin, from where I customized the logic. Toggle easily between light and dark. 
 
+Note: I tried adding the app reload for the plugin toggle (since I learned not all plugins are fully disabled without it), however, that broke the current code, so that would probably need a bit of a different approach.
+
 ## Arrow No-Break
 
 Folder: arrow-nobreak
