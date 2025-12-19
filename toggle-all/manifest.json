@@ -1,8 +1,8 @@
 {
   "id": "toggle-all",
   "name": "Toggle Snippets, Plugins and Themes",
-  "version": "1.0.1",
-  "minAppVersion": "1.19.12",
+  "version": "1.0.0",
+  "minAppVersion": "1.10.3",
   "author": "Anna Parikka",
   "main": "main.js"
 }

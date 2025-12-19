@@ -2,7 +2,7 @@
   "id": "arrow-nobreak",
   "name": "Arrow No-Break",
   "version": "1.0.0",
-  "minAppVersion": "1.19.12",
+  "minAppVersion": "1.10.3",
   "description": "Prevents line breaks inside '->' in Live Preview.",
   "author": "Anna Parikka",
   "isDesktopOnly": false
