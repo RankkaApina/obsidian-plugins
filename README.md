@@ -6,17 +6,17 @@ Each plugin is in it's own folder, basically it should work if you download the 
 
 I will have a short description here what each plugin does.
 
-## Toggle Snippets, Plugins and Themes
+## Archive Links
 
-Folder: toggle-all
+Folder: archive-links
 
-This is something I haven't found in existing plugins (although some functionality exists). It adds 4 status bar buttons (here described from left to right in status bar) that are basically toggles to help with testing themes and/or plugins or just see if customization is causing your current issue:
-- Toggle snippets: this toggles all active snippets off and then back on when clicked the second time. It saves the active snippets list, so it only enables snippets you had enabled before the toggle off.
-- Toggle plugins: this toggles all active plugins off, except THIS PLUGIN (do so manually) and then back on when desired. If you do manually toggle this off, the list of active plugins and the enabled/disabled state is saved, so you only need to manually toggle this particular plugin, rest will work with one click.
-- Toggle color theme: this will toggle your custom theme to default and back. 
-- Toggle light/dark mode: this works like the Theme Picker plugin, from where I customized the logic. Toggle easily between light and dark. 
-
-Note: I tried adding the app reload for the plugin toggle (since I learned not all plugins are fully disabled without it), however, that broke the current code, so that would probably need a bit of a different approach.
+I quite like the [obsidian-link-archive](https://github.com/tomzorz/obsidian-link-archive) plugin. However, it doesn't seem to be maintained and I wanted to add a few changes for me personally. So, this is very much based on that plugin, but:
+- It doesn't have a ribbon button, because I mainly use keyboard shortcuts
+- It adds another command that doesn't archive the page, but checks for the latest archived version for the link and if it's similar enough, adds that.
+- You can add a pre-link and post-link text
+- It skips YouTube links, because they fail to archive anyway
+- If the archiving fails, it tries to find an older archived version that does work and add that. If you use the `{date}` it will use the date of that old archived version.
+- If the note has duplicate links, it only archives it once and you can choose in the settings if you wish the archived link to be added to the first/last/all instance(s).
 
 ## Arrow No-Break
 
@@ -46,3 +46,15 @@ Here's the CSS for source & reading mode:
   white-space: nowrap;
 }
 ```
+
+## Toggle Snippets, Plugins and Themes
+
+Folder: toggle-all
+
+This is something I haven't found in existing plugins (although some functionality exists). It adds 4 status bar buttons (here described from left to right in status bar) that are basically toggles to help with testing themes and/or plugins or just see if customization is causing your current issue:
+- Toggle snippets: this toggles all active snippets off and then back on when clicked the second time. It saves the active snippets list, so it only enables snippets you had enabled before the toggle off.
+- Toggle plugins: this toggles all active plugins off, except THIS PLUGIN (do so manually) and then back on when desired. If you do manually toggle this off, the list of active plugins and the enabled/disabled state is saved, so you only need to manually toggle this particular plugin, rest will work with one click.
+- Toggle color theme: this will toggle your custom theme to default and back. 
+- Toggle light/dark mode: this works like the Theme Picker plugin, from where I customized the logic. Toggle easily between light and dark. 
+
+Note: I tried adding the app reload for the plugin toggle (since I learned not all plugins are fully disabled without it), however, that broke the current code, so that would probably need a bit of a different approach.
